@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         fwrite($file,"id: $id" . "\n" . "username: $user_name" . "\n" . "description: $user_description");
     } else {
         $file = fopen("../user_files/" . $_POST['user_name'] . '.txt',"w");
-        fwrite($file,"id: " . "\n" . "username: $user_name" . "\n" . "description: $user_description");
+        fwrite($file,"id: 1" . "\n" . "username: $user_name" . "\n" . "description: $user_description");
     }
     fclose($file);
     echo 'file created successfully';
