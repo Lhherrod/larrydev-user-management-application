@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once '../app/Constants.php';
+require_once '../app/Enums.php';
 
 echo '<body style="background-color: black; color: blueviolet"></body>';
 
@@ -12,16 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_description = $_POST['user_description'];
     if(count(scandir(USER_FILES_PATH)) > 2) {
         $id = checkForOtherUsers(USER_FILES_PATH);
-        file_put_contents(
-            '../user_files/' . $_POST['user_name'] . '.txt',
-            "id: $id\nusername: $user_name\ndescription: $user_description"
-        );
+        $file = fopen("../user_files/" . $_POST['user_name'] . '.txt',"w");
+        fwrite($file,"id: $id" . "\n" . "username: $user_name" . "\n" . "description: $user_description");
     } else {
-        file_put_contents(
-            '../user_files/' . $_POST['user_name'] . '.txt',
-            "id: 1\nusername: $user_name\ndescription: $user_description"
-        );
+        $file = fopen("../user_files/" . $_POST['user_name'] . '.txt',"w");
+        fwrite($file,"id: " . "\n" . "username: $user_name" . "\n" . "description: $user_description");
     }
+    fclose($file);
     echo 'file created successfully';
 }
 
